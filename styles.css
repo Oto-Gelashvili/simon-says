@@ -12,10 +12,12 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  min-height: 100vh;
   font-family: 'Press Start 2P', cursive;
   text-align: center;
-
+  height: 100vh;
+  padding: 2.4rem;
+  line-height: 1.5;
+  gap: 2.4rem;
 }
 
 #level-title {
@@ -32,18 +34,18 @@ p{
 }
 .container {
   background: #FFFFFF;
-  padding: 3.6rem;
+  padding: 1.6rem;
   display: grid;
   grid-template-columns: repeat(2,1fr);
   grid-template-rows: 1fr 1fr;
-  gap: 1.2rem;
+  gap: 1.6rem;
+  width: clamp(280px, 100%, 600px);
+  height: clamp(280px, 60%, 600px); 
+}
+.container:hover{
+  cursor: pointer;
 }
 
-.btn {
-  height: 200px;
-  width: 200px;
-
-}
 
 .game-over {
   background-color: #F35325;
@@ -74,29 +76,12 @@ p{
   box-shadow: 0 0 20px white;
   background-color: hsl(25, 97%, 53%);
 }
-
-@media (max-width:375px) {
-  .btn {
-    height: 100px;
-    width: 100px;
-  }
-  #level-title {
-    font-size: 2.4rem;
-    color: white;
-  }
-  h2{
-    font-size: 1.6rem;
-    color: white;
-    }
-  p{
-    font-size: 1.2rem;
-    color: white;
-  }
-}
 @media (max-width:500px) {
-  .btn {
-    height: 140px;
-    width: 140px;
+  
+  .container{
+    padding: 1rem;
+    gap: 1rem;
+    height: clamp(300px, 60%, 400px); 
   }
   #level-title {
     font-size: 2.8rem;
@@ -108,6 +93,24 @@ p{
     }
   p{
     font-size: 1.4rem;
+    color: white;
+  }
+}
+@media (max-width:375px) {
+  .container{
+    padding: 1rem;
+    gap: 1rem;
+  }
+  #level-title {
+    font-size: 2.4rem;
+    color: white;
+  }
+  h2{
+    font-size: 1.8rem;
+    color: white;
+    }
+  p{
+    font-size: 1.6rem;
     color: white;
   }
 }

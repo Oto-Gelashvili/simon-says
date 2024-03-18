@@ -5,6 +5,8 @@ var gameStarted = false;
 var buttonColours = ["red", "blue", "green", "yellow"];
 var highScore = 0;
 function nextSequence() {
+    level++;
+    userClickedPattern = [];
     var randomNumber = Math.floor(Math.random() * 4);
     var randomChosenColour = buttonColours[randomNumber];
     var buttonId = "#" + randomChosenColour;
@@ -12,20 +14,19 @@ function nextSequence() {
     playSound(randomChosenColour);
     animatePress(randomChosenColour);
     gamePattern.push(randomChosenColour);
-    level++;
-    if(level >highScore){
+    if(level > highScore){
         highScore++;
     }
-    $("h2").html("High score: " + highScore)
+    $("h1").text("level " + level);
+    $("h2").html("High score: " + highScore);
+    
 };
-$(document).on("keypress",function(event){
+$(document).on("keypress touchstart",function(event){
     if(gameStarted == false){
         nextSequence();
         gameStarted = true;
-        $("h1").text("level " + level);
     }
 });
-// Add a delay before the next sequence
 $(".btn").click(function(){
         if(gameStarted == true && gamePattern.length > userClickedPattern.length){
             var userChosenColour = $(this).attr("id");
@@ -34,8 +35,8 @@ $(".btn").click(function(){
             userClickedPattern.push(userChosenColour);
             checkAnswer();
         }
-    
 });
+
 function playSound(name){
     var buttonSound = new Audio("./sounds/" + name + ".mp3");
     buttonSound.play();
@@ -56,10 +57,9 @@ function checkAnswer(){
                 setTimeout(function() {
                     $("body").removeClass("game-over");
                 }, 100);
-                userClickedPattern = [];
+                gameStarted = false; 
                 gamePattern = [];
                 level = 0;
-                gameStarted = false;
                 return;
             }
         }
@@ -73,30 +73,14 @@ function checkAnswer(){
                 setTimeout(function() {
                     $("body").removeClass("game-over");
                 }, 100);
-                userClickedPattern = [];
+                gameStarted = false;
                 gamePattern = [];
                 level = 0;
-                gameStarted = false;
-                return;
-            }else if(highScore == 85){
-                $("h1").text("You win, press a key to restart");
-                playSound("win");
-                $("body").addClass("win");
-                setTimeout(function() {
-                    $("body").removeClass("win");
-                }, 100);
-                userClickedPattern = [];
-                gamePattern = [];
-                highScore = 0;
-                level = 0;
-                gameStarted = false;
                 return;
             }
         }
-        userClickedPattern = [];
         setTimeout(function() {
             nextSequence();
-            $("h1").text("level " + level);
         }, 1000);
     
     }
